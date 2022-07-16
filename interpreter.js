@@ -1,3 +1,40 @@
+function _format(str)
+{
+    let r = "";
+    let e = false;
+    for(let i of str)
+    {
+        if(i == "\\" && !e)
+        {
+            e = true;
+        }
+        else if(e)
+        {
+            switch(i)
+            {
+                case "c":
+                    r += ";";
+                    break;
+                case "q":
+                    r += "\"";
+                    break;
+                case "n":
+                    r += "\n";
+                    break;
+                case "\\":
+                    r += "\\";
+                    break;
+                default:
+                   
+            }
+        }
+        else
+        {
+            r += i;
+        }
+    }
+}
+
 function _interpret(code)
 {
     const kwobj = {
@@ -12,6 +49,27 @@ function _interpret(code)
                 }
             }
             window[key] = value;
+        },
+        spit(ln)
+        {
+            let spitstr = "";
+            for(let i = 1; i < ln.length; i++)
+            {
+                if(i == 1)
+                {
+                    ln[i].replace(/"/, "");
+                    spitstr += _format(ln[i]);
+                }
+                else if(i+1 >= ln.length)
+                {
+                    ln[i].pop();
+                    spitstr = _format(ln[i]);
+                }
+                else
+                {
+                    spitstr = _format(ln[i]);
+                }
+            }
         }
     };
     let lines = code.split(";");
