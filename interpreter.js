@@ -94,3 +94,6 @@ function _run(link)
     };
     xhr.send();
 }
+
+
+export default {_interpret: _interpret, _format: _format, _run: _run};
