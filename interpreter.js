@@ -75,6 +75,7 @@ function _interpret(code)
                 {
                     spitstr = _format(ln[i]);
                 }
+                spitstr += " ";
             }
             console.log(spitstr);
         }
