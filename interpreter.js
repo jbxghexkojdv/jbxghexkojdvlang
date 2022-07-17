@@ -71,7 +71,7 @@ function _interpret(code)
                     }
                     else
                     {
-                        console.error("Invalid string: " + value;)
+                        console.error("Invalid string: " + value);
                     }
                     break;
                 case "int":
