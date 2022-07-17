@@ -4,7 +4,7 @@ function _format(str)
     let e = false;
     for(let i of str)
     {
-        if(i == "\\" && !e)
+        if(i == "$" && !e)
         {
             e = true;
         }
@@ -21,8 +21,8 @@ function _format(str)
                 case "n":
                     r += "\n";
                     break;
-                case "\\":
-                    r += "\\";
+                case "$":
+                    r += "$";
                     break;
                 default:
                    
@@ -70,6 +70,7 @@ function _interpret(code)
                     spitstr = _format(ln[i]);
                 }
             }
+            console.log(spitstr);
         }
     };
     let lines = code.split(";");
