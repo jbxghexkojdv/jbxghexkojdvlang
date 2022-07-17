@@ -78,7 +78,7 @@ function _interpret(code)
                 case "float":
                 case "double":
                 case "number":
-                    if(value.match(/^\d+$/)[0])
+                    if(value.match(/^\d+ $/)[0])
                     {
                         value = Number(value);
                     }
