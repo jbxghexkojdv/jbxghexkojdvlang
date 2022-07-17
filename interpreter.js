@@ -33,6 +33,7 @@ function _format(str)
             r += i;
         }
     }
+    return r;
 }
 
 function _interpret(code)
