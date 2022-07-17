@@ -1,1 +1,1 @@
-spit "This is a string\nQuote: \q\nSemicolon: \c\n\\";
+spit "This is a string being printed in jbxghexkojdvlang.$nQuote: $q$nSemicolon: $c$n$$";
