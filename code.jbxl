@@ -1,1 +1,3 @@
-spit "This is a string being printed in jbxghexkojdvlang.$nQuote: $q$nSemicolon: $c$n$$";
+spit "This is a string being printed in jbxghexkojdvlang.\nQuote: $q\nSemicolon: $c\nDollar sign: $$";
+store number 69 as var1;
+spit var1;
