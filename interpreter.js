@@ -113,6 +113,7 @@ function _interpret(code)
                 default:
                     // for classes later
             }
+            name = ln[ln.length-1];
             window[name] = value;
         },
         spit(ln)
