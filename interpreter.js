@@ -8,7 +8,6 @@ function _format(str)
         if(i == "$" && !e)
         {
             e = true;
-            console.log(1)
         }
         else if(e)
         {
@@ -30,12 +29,11 @@ function _format(str)
                    r += i;
             }
             e = false;
-            console.log(2);
         }
         else
         {
             r += i;
-            console.log(3);
+            console.log(r);
         }
     }
     return r;///
