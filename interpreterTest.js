@@ -57,7 +57,7 @@ function _interpret(code)
             value = value.slice(0, -1);
             if(ln[ln.length-2] != "as")
             {
-                console.log("Expected \"as\" keyword in declaration of variable with value " + value + " and type " + type);
+                console.error("Expected \"as\" keyword in declaration of variable with value " + value + " and type " + type);
             }
             switch(type)
             {
@@ -123,7 +123,7 @@ function _interpret(code)
             {
                 if(i == 1 && (ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
                 {
-                    ln[i].replace(/"/, "");
+                    ln[i].replace(/^"/, "");
                     spitstr += _format(ln[i]);
                 }
                 else if(i+1 >= ln.length && (ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
@@ -142,6 +142,22 @@ function _interpret(code)
                 spitstr += " ";
             }
             console.log(spitstr);
+        },
+        repeat(ln)
+        {
+            if(!Number(ln[ln.length-1]) || Number(ln[ln.length-1]) <= 0 || Number(ln[ln.length-1]) % 1 != 0)
+            {
+                console.error("Expected non-negative, non-zero integer after repeat statement. Got \"" + ln[ln.length-1] + "\".")
+            }
+            let code = "";
+            for(let i = 1; i+1 < ln.length; i++)
+            {
+                if(i <= 1) ln[i] = ln[i].slice(1);
+                if(i >= ln.length-1) ln[i] = ln[i].slice(0, -1);
+                code += ln[i] + " ";
+            }
+            code = _format(code);
+            _interpret(code);
         }
     };
     let lines = code.split(";");
