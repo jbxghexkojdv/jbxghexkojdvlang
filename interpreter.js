@@ -34,7 +34,6 @@ function _format(str)
         {
             r += i;
         }
-        console.log(r);
     }
     return r;///
 }
@@ -67,11 +66,11 @@ function _interpret(code)
                 else if(i+1 >= ln.length)
                 {
                     ln[i].replace(/"$/, "");
-                    spitstr = _format(ln[i]);
+                    spitstr += _format(ln[i]);
                 }
                 else
                 {
-                    spitstr = _format(ln[i]);
+                    spitstr += _format(ln[i]);
                 }
                 spitstr += " ";
             }
