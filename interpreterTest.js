@@ -108,7 +108,7 @@ function _interpret(code)
                     }
                     break;
                 case "array":
-                    if(value[0] == "{" && value[value.length-1] == "}")
+                    if(value[0] == "{" && value[value.length-1] == "}" && value.slice(1, -1).match(/^([a-zA-Z0-9"'\[\]\{\}\\\/\?\#\%\:], *)<$/)[0])
                     {
                         value = JSON.parse(`[${value.slice(1, -1)}]`);
                     }
@@ -116,9 +116,25 @@ function _interpret(code)
                     {
                         value = window[value];
                     }
+                    else
+                    {
+                        console.error("Invalid array: " + value);
+                    }
                     break;
                 case "dict":
                 case "dictionary":
+                    if((function(){try{JSON.parse(value)}catch{return false;}return true;})())
+                    {
+                        value = JSON.parse(value);
+                    }
+                    else if(value in window)
+                    {
+                        value = window[value];
+                    }
+                    else
+                    {
+                        console.error("Invalid dictionary: " + value);
+                    }
                     break;
                 case "auto":
                     value == JSON.parse(value);
