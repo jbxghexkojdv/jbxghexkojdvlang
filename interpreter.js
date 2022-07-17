@@ -4,9 +4,11 @@ function _format(str)
     let e = false;
     for(let i of str)
     {
+    console.log(i);
         if(i == "$" && !e)
         {
             e = true;
+            console.log(1)
         }
         else if(e)
         {
@@ -28,10 +30,12 @@ function _format(str)
                    r += i;
             }
             e = false;
+            console.log(2);
         }
         else
         {
             r += i;
+            console.log(3);
         }
     }
     return r;///
