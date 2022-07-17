@@ -1,4 +1,4 @@
-store array {94, "amogus"} as testArr;
+store array [94, "amogus"] as testArr;
 store dict
 {
     "sixtynine": 69
