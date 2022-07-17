@@ -2,7 +2,7 @@ function _format(str)
 {
     if(typeof str != "string")
     {
-        str = str.toString();
+        str = JSON.stringify(str);
     }
     let r = "";
     let e = false;
