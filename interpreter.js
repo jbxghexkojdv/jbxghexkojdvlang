@@ -62,7 +62,7 @@ function _interpret(code)
                 }
                 else if(i+1 >= ln.length)
                 {
-                    ln[i].pop();
+                    ln[i].replace(/"$/, "");
                     spitstr = _format(ln[i]);
                 }
                 else
