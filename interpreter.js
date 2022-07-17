@@ -54,14 +54,14 @@ function _interpret(code)
             {
                 value += ln[i] + " ";
             }
-            if(ln.at(-2) != "as")
+            if(ln[ln.length-2] != "as")
             {
                 console.log("Expected \"as\" keyword in declaration of variable with value " + value + " and type " + type);
             }
             switch(type)
             {
                 case "string":
-                    if(value[0] == "\"" && value.at(-1) == "\"")
+                    if(value[0] == "\"" && value[value.length-1] == "\"")
                     {
                         value = value.slice();
                     }
