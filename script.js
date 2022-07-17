@@ -1,2 +1,2 @@
 import jl from "./interpreter.js";
-jl._run("./code.jl")
+jl._run("./code.jbxl")
