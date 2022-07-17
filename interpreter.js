@@ -33,8 +33,8 @@ function _format(str)
         else
         {
             r += i;
-            console.log(r);
         }
+        console.log(r);
     }
     return r;///
 }
