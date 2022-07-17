@@ -108,9 +108,9 @@ function _interpret(code)
                     }
                     break;
                 case "array":
-                    if(value[0] == "{" && value[value.length-1] == "}" && value.slice(1, -1).match(/^([a-zA-Z0-9"'\[\]\{\}\\\/\?\#\%\:], *)<$/)[0])
+                    if(value[0] == "[" && value[value.length-1] == "]" && value.slice(1, -1).match(/^([a-zA-Z0-9"'\[\]\{\}\\\/\?\#\%\:], *)<$/)[0])
                     {
-                        value = JSON.parse(`[${value.slice(1, -1)}]`);
+                        value = JSON.parse(value);
                     }
                     else if(value in window)
                     {
