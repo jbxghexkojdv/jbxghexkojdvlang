@@ -1,4 +1,8 @@
-repeat
-"
-    spit $"The fact that you will have to escape stuff like this will get annoying.$"$c
-" 5;
+store array {94, "amogus"} as testArr;
+store dict
+{
+    "sixtynine": 69
+}
+as testDict;
+spit testArr;
+spit testDict;
