@@ -27,6 +27,7 @@ function _format(str)
                 default:
                    
             }
+            e = false;
         }
         else
         {
