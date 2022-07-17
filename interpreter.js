@@ -78,7 +78,7 @@ function _interpret(code)
                 case "float":
                 case "double":
                 case "number":
-                    if(value.match(/\d+/)[0] == value)
+                    if(value.match(/^\d+$/)[0])
                     {
                         value = Number(value);
                     }
@@ -90,6 +90,7 @@ function _interpret(code)
                     {
                         console.error("Invalid number: ");
                     }
+                    break;
                 case "boolean":
                 case "bool":
                     if(value == "true")
