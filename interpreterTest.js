@@ -107,6 +107,19 @@ function _interpret(code)
                         console.error("Invalid boolean: " + value);
                     }
                     break;
+                case "array":
+                    if(value[0] == "{" && value[value.length-1] == "}")
+                    {
+                        value = JSON.parse(`[${value.slice(1, -1)}]`);
+                    }
+                    else if(value in window)
+                    {
+                        value = window[value];
+                    }
+                    break;
+                case "dict":
+                case "dictionary":
+                    break;
                 case "auto":
                     value == JSON.parse(value);
                     break;
