@@ -25,7 +25,7 @@ function _format(str)
                     r += "$";
                     break;
                 default:
-                   
+                   r += i;
             }
             e = false;
         }
