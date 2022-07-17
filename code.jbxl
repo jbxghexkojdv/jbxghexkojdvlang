@@ -1,3 +1,4 @@
-spit "This is a string being printed in jbxghexkojdvlang.\nQuote: $q\nSemicolon: $c\nDollar sign: $$";
-store number 69 as var1;
-spit var1;
+repeat
+"
+    spit $"The fact that you will have to escape stuff like this will get annoying.$"$c
+" 5;
