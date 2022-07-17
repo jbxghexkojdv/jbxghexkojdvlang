@@ -64,7 +64,7 @@ function _interpret(code)
                 case "string":
                     if(value[0] == "\"" && value[value.length-1] == "\"")
                     {
-                        value = value.slice();
+                        value = value.slice(1, -1);
                     }
                     else if(value in window)
                     {
@@ -98,7 +98,7 @@ function _interpret(code)
                     {
                         value = true;
                     }
-                    else if(value == "")
+                    else if(value == "false")
                     {
                         value = false;
                     }
@@ -123,12 +123,12 @@ function _interpret(code)
             {
                 if(i == 1 && (ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
                 {
-                    ln[i].replace(/^"/, "");
+                    ln[i] = ln[i].slice(1);
                     spitstr += _format(ln[i]);
                 }
                 else if(i+1 >= ln.length && (ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
                 {
-                    ln[i].replace(/"$/, "");
+                    ln[i] = ln[i].slice(0, -1);
                     spitstr += _format(ln[i]);
                 }
                 else if(i == 1 && !(ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
@@ -157,7 +157,10 @@ function _interpret(code)
                 code += ln[i] + " ";
             }
             code = _format(code);
-            _interpret(code);
+            for(let i = 0; i < Number(ln[ln.length-1]); i++)
+            {
+                _interpret(code);
+            }
         }
     };
     let lines = code.split(";");
