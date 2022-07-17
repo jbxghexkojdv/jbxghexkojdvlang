@@ -54,6 +54,7 @@ function _interpret(code)
             {
                 value += ln[i] + " ";
             }
+            value = value.slice(0, -1);
             if(ln[ln.length-2] != "as")
             {
                 console.log("Expected \"as\" keyword in declaration of variable with value " + value + " and type " + type);
@@ -78,7 +79,7 @@ function _interpret(code)
                 case "float":
                 case "double":
                 case "number":
-                    if(value.match(/^\d+ $/)[0])
+                    if(value.match(/^\d+$/)[0])
                     {
                         value = Number(value);
                     }
