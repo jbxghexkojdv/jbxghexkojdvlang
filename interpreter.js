@@ -102,7 +102,7 @@ function _interpret(code)
                     }
                     else
                     {
-                        console.error("Invalid boolean: " + value;)
+                        console.error("Invalid boolean: " + value);
                     }
                     break;
                 case "auto":
