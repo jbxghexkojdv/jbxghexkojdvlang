@@ -108,7 +108,7 @@ function _interpret(code)
                     }
                     break;
                 case "array":
-                    if(value[0] == "[" && value[value.length-1] == "]" && value.slice(1, -1).match(/^([a-zA-Z0-9"'\[\]\{\}\\\/\?\#\%\:], *)<$/)[0])
+                    if((function(){try{JSON.parse(value)}catch{return false;}return true;})())
                     {
                         value = JSON.parse(value);
                     }
