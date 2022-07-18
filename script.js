@@ -1,4 +1,4 @@
-import jl from "./interpreterTest.js";//
+import jl from "./interpreterTest.js";///
 try {
 jl._run("./code.jbxl")
 }
