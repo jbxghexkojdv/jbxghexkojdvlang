@@ -165,10 +165,10 @@ function _interpret(code)
                     switch(ln[2])
                     {
                         case "new":
-                            value = document.createElement(ln[2]);
-                            if(ln[3] != "as")
+                            value = document.createElement(ln[3]);
+                            if(ln[4] != "as")
                             {
-                                window[ln[3]].appendChild(value);
+                                window[ln[4]].appendChild(value);
                             }
                             else
                             {
