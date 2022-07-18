@@ -2,7 +2,7 @@ function _format(str)
 {
     if(typeof str != "string")
     {
-        str = str.toString();
+        str = JSON.stringify(str);
     }
     let r = "";
     let e = false;
@@ -105,6 +105,35 @@ function _interpret(code)
                     else
                     {
                         console.error("Invalid boolean: " + value);
+                    }
+                    break;
+                case "array":
+                    if((function(){try{JSON.parse(value)}catch{return false;}return true;})())
+                    {
+                        value = JSON.parse(value);
+                    }
+                    else if(value in window)
+                    {
+                        value = window[value];
+                    }
+                    else
+                    {
+                        console.error("Invalid array: " + value);
+                    }
+                    break;
+                case "dict":
+                case "dictionary":
+                    if((function(){try{JSON.parse(value)}catch{return false;}return true;})())
+                    {
+                        value = JSON.parse(value);
+                    }
+                    else if(value in window)
+                    {
+                        value = window[value];
+                    }
+                    else
+                    {
+                        console.error("Invalid dictionary: " + value);
                     }
                     break;
                 case "auto":
