@@ -4,8 +4,10 @@ function _format(str)
     {
         str = JSON.stringify(str);
     }
+
     let r = "";
     let e = false;
+
     for(let i of str)
     {
         if(i == "$" && !e)
@@ -31,6 +33,7 @@ function _format(str)
                 default:
                    r += i;
             }
+
             e = false;
         }
         else
@@ -38,7 +41,19 @@ function _format(str)
             r += i;
         }
     }
+
     return r;///
+}
+
+function _parseName(name)
+{
+    if(typeof name == "string") name = name.split(".");
+    for(let i in name) if(name[i].match(/^\d+$/)) name[i] = Number(name[i]);
+
+    let retval = window;
+    for(let i = 0; i+1 < name.length; i++) retval = retval[name[i]];
+
+    return [retval, name[name.length-1]];
 }
 
 function _interpret(code)
@@ -136,14 +151,39 @@ function _interpret(code)
                         console.error("Invalid dictionary: " + value);
                     }
                     break;
+                case "elem":
+                case "element":
+                    switch(ln[2])
+                    {
+                        case "new":
+                            value = document.createElement(ln[2]);
+                            if(ln[3] != "as")
+                            {
+                                window[ln[3]].appendChild(value);
+                            }
+                            else
+                            {
+                                document.getElementsByTagName("body")[0].appendChild(value);
+                            }
+                            break;
+                        case "tag":
+                        case "tagName":
+                            value = document.getElementsByTagName(ln[2])[Number(ln[3])];
+                            break;
+                        case "id":
+                            value = document.getElementById(ln[2]);
+                            break;
+                    }
                 case "auto":
                     value == JSON.parse(value);
                     break;
                 default:
                     // for classes later
             }
-            name = ln[ln.length-1];
-            window[name] = value;
+            name = ln[ln.length-1].split(".");
+            let location = window;
+            for(let i = 0; i+1 < name.length; i++) location = location[name];
+            location[name[name.length-1]] = value;
         },
         spit(ln)
         {
@@ -217,3 +257,40 @@ function _run(link)
 
 
 export default {_interpret: _interpret, _format: _format, _run: _run};
+run};
+un};
+n};
+for(let i = 1; i+1 < ln.length; i++)
+            {
+                if(i <= 1) ln[i] = ln[i].slice(1);
+                if(i >= ln.length-1) ln[i] = ln[i].slice(0, -1);
+                code += ln[i] + " ";
+            }
+            code = _format(code);
+            for(let i = 0; i < Number(ln[ln.length-1]); i++)
+            {
+                _interpret(code);
+            }
+        }
+    };
+    let lines = code.split(";");
+    for(let i of lines)
+    {
+        let words = i.split(/\s/g).filter((value, index, arr) => {return value != "";});
+        if(words[0] in kwobj)
+        {
+            kwobj[words[0]](words);
+        }
+    }
+}
+
+function _run(link)
+{
+    if(typeof link != 'string') return;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", link);
+    xhr.onload = () =>
+    {
+        _interpret(xhr.responseText);
+    };
+    xhr.send();
