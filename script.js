@@ -4,5 +4,5 @@ jl._run("./code.jbxl")
 }
 catch(err)
 {
-    console.error(err.stack);
+    console.log(err.stack);
 }
