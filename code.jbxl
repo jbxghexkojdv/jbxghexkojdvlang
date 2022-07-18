@@ -1,8 +1,2 @@
-store array [94, "amogus"] as testArr;
-store dict
-{
-    "sixtynine": 69
-}
-as testDict;
-spit testArr;
-spit testDict;
+store elem new p as testElement;
+store string "This is a test!" as testElement.innerHTML;
