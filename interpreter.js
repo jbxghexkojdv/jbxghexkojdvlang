@@ -4,8 +4,10 @@ function _format(str)
     {
         str = JSON.stringify(str);
     }
+
     let r = "";
     let e = false;
+
     for(let i of str)
     {
         if(i == "$" && !e)
@@ -31,6 +33,7 @@ function _format(str)
                 default:
                    r += i;
             }
+
             e = false;
         }
         else
@@ -38,7 +41,37 @@ function _format(str)
             r += i;
         }
     }
+
     return r;///
+}
+
+function _parseName(name)
+{
+    if(typeof name == "string")
+    {
+        name = name.split(".");
+    }
+    for(let i in name)
+    {
+        if(name[i].match(/^\d+$/))
+        {
+            name[i] = Number(name[i]);
+        }
+    }
+
+    let retval = window;
+    for(let i = 0; i+1 < name.length; i++) retval = retval[name[i]];
+
+    return [retval, name[name.length-1]];
+}
+
+function _access(isSetting, name, value = null)
+{
+    if(isSetting)
+    {
+        return _parseName(name)[0][_parseName(name)[1]] = value;
+    }
+    return _parseName(name)[0][_parseName(name)[1]];
 }
 
 function _interpret(code)
@@ -136,6 +169,34 @@ function _interpret(code)
                         console.error("Invalid dictionary: " + value);
                     }
                     break;
+                case "elem":
+                case "element":
+                    switch(ln[2])
+                    {
+                        case "new":
+                            value = document.createElement(ln[3]);
+                            if(ln[4] != "as")
+                            {
+                                window[ln[4]].appendChild(value);
+                            }
+                            else
+                            {
+                                document.getElementsByTagName("body")[0].appendChild(value);
+                            }
+                            break;
+                        case "tag":
+                        case "tagName":
+                            value = document.getElementsByTagName(ln[2])[Number(ln[3])];
+                            break;
+                        case "id":
+                            value = document.getElementById(ln[2]);
+                            break;
+                    }
+                    break;
+                case "func":
+                case "function":
+                    value = (args) => {window["args"] = args; _interpret(_format(value));};
+                    break;
                 case "auto":
                     value == JSON.parse(value);
                     break;
@@ -143,7 +204,7 @@ function _interpret(code)
                     // for classes later
             }
             name = ln[ln.length-1];
-            window[name] = value;
+            _access(true, name, value);
         },
         spit(ln)
         {
@@ -160,9 +221,9 @@ function _interpret(code)
                     ln[i] = ln[i].slice(0, -1);
                     spitstr += _format(ln[i]);
                 }
-                else if(i == 1 && !(ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)))
+                else if(i == 1 && !(ln[i][0] == "\"" || ln[i] == "true" || ln[i] == "false" || ln[i].match(/^\d+$/)) && ln[i].split(".")[0] in window)
                 {
-                    spitstr += _format(window[ln[i]]);
+                    spitstr += _format(_access(false, name));
                 }
                 else
                 {
@@ -190,6 +251,10 @@ function _interpret(code)
             {
                 _interpret(code);
             }
+        },
+        call(ln)
+        {
+            _access(false, ln[1])(ln.slice(2));
         }
     };
     let lines = code.split(";");
