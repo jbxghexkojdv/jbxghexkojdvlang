@@ -47,8 +47,17 @@ function _format(str)
 
 function _parseName(name)
 {
-    if(typeof name == "string") name = name.split(".");
-    for(let i in name) if(name[i].match(/^\d+$/)) name[i] = Number(name[i]);
+    if(typeof name == "string")
+    {
+        name = name.split(".");
+    }
+    for(let i in name)
+    {
+        if(name[i].match(/^\d+$/))
+        {
+            name[i] = Number(name[i]);
+        }
+    }
 
     let retval = window;
     for(let i = 0; i+1 < name.length; i++) retval = retval[name[i]];
@@ -60,9 +69,9 @@ function _access(isSetting, name, value = null)
 {
     if(isSetting)
     {
-        return _parseName(name)[0][_parseName[1]] = value;
+        return _parseName(name)[0][_parseName(name)[1]] = value;
     }
-    return _parseName(name)[0][_parseName[1]];
+    return _parseName(name)[0][_parseName(name)[1]];
 }
 
 function _interpret(code)
