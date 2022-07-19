@@ -1,2 +1,5 @@
-store elem new p as testElement;
-store string "This is a test!" as testElement.innerHTML;
+store func
+"
+    spit args.0;
+" as print;
+call print "aaa";
