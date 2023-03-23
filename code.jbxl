@@ -1,5 +1,1 @@
-store func
-"
-    spit args.0$c
-" as print;
-call print "aaa";
+
